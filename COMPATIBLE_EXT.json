@@ -1,0 +1,30 @@
+{
+    "version": "0.0.1",
+    "extractors": [
+        {
+            "name": "discord-player-youtubei",
+            "github": "https://github.com/retrouser955/discord-player-youtubei.git",
+            "stable": "latest",
+            "beta": "beta",
+            "experimental": "EXT_PACK_USE_GIT"
+        },
+        {
+            "name": "discord-player-spotify",
+            "github": "https://github.com/iTsMaaT/discord-player-spotify.git",
+            "stable": "latest",
+            "experimental": "EXT_PACK_USE_GIT"
+        },
+        {
+            "name": "discord-player-deezer",
+            "github": "https://github.com/discord-player/deezer-extractor",
+            "stable": "latest",
+            "experimental": "EXT_PACK_USE_GIT"
+        },
+        {
+            "name": "discord-player-applemusic",
+            "github": "https://github.com/iTsMaaT/discord-player-applemusic.git",
+            "stable": "latest",
+            "experimental": "EXT_PACK_USE_GIT"
+        }
+    ]
+}
