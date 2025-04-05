@@ -1,0 +1,22 @@
+{
+  "name": "extractorpack",
+  "version": "0.0.1",
+  "main": "loader/index.js",
+  "scripts": {
+    "build": "tsup"
+  },
+  "dependencies": {
+    "commander": "^13.1.0",
+    "ts-morph": "^25.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "discord-player": "^7.1.0",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.3"
+  },
+  "packageManager": "yarn@1.22.1",
+  "bin": {
+    "extractorpack": "./bin/index.ts"
+  }
+}
