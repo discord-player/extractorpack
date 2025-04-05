@@ -1,4 +1,0 @@
-{
-    "extends": "@extractorpack/tsconfig/typescript.json",
-    "include": ["./sonata/**/*.ts"]
-}
