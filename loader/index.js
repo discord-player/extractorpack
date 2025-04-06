@@ -1,3 +1,6 @@
+/**
+ * THIS IS AN AUTO GENERATED FILE. DO NOT EDIT UNLESS YOU KNOW WHAT YOU'RE DOING
+ */
 const path = require("path")
 
 /**

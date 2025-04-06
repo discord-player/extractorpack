@@ -1,9 +1,8 @@
 import type { Command } from "commander";
-import { createErrorMessage, createWarnMessage, ExtractorData, getAllExtractors, getManager, PackageManagers } from "../utils";
+import { bold, createErrorMessage, createWarnMessage, ExtractorData, getAllExtractors, getManager, PackageManagers } from "../utils";
 import { execSync } from "child_process";
 import { modifyCode } from "../utils";
 import ora from "ora-classic";
-import c from "ansi-colors"
 import { ORA_FRAMES_BLUE, SUPPORTED_VERSIONS, USE_GITHUB_VERSION } from "../Constants";
 
 function buildInstallCommand(manager: PackageManagers, pkg: ExtractorData, version?: string): `${PackageManagers} ${"install" | "add"} ${string}@${string}` {
@@ -39,7 +38,7 @@ export function addCommand(program: Command) {
             const displayExt = `${options.version ? `@${options.version}` : ""}`
 
             const installSpinner = ora({
-                text: `Installing ${c.bold(displayExt)} ...`,
+                text: `Installing ${bold(displayExt)} ...`,
                 spinner: ORA_FRAMES_BLUE
             }).start()
 
@@ -48,7 +47,7 @@ export function addCommand(program: Command) {
             })
 
             installSpinner.stopAndPersist({
-                text: `Installed ${c.bold(displayExt)}`,
+                text: `Installed ${bold(displayExt)}`,
                 symbol: "✅"
             })
 
@@ -59,12 +58,12 @@ export function addCommand(program: Command) {
 
             const { isBodyWritten, isTypesWritten } = modifyCode(extractor)
 
-            let message = `Wrote new types to ${c.bold("/loader/index.d.ts")} and new code to ${c.bold("/loader/index.js")}`
+            let message = `Wrote new types to ${bold("/loader/index.d.ts")} and new code to ${bold("/loader/index.js")}`
 
-            if(isBodyWritten && isTypesWritten) message = `Wrote new types to ${c.bold("/loader/index.d.ts")} and new code to ${c.bold("/loader/index.js")}`
-            else if(isBodyWritten) message = `Wrote new code to ${c.bold("/loader/index.js")}`
-            else if(isTypesWritten) message = `Wrote new types to ${c.bold("/loader/index.d.ts")}`
-            else message = `${c.bold("No types or body")} were written as they already exists. This is possibly due to running the install command multiple times`
+            if(isBodyWritten && isTypesWritten) message = `Wrote new types to ${bold("/loader/index.d.ts")} and new code to ${bold("/loader/index.js")}`
+            else if(isBodyWritten) message = `Wrote new code to ${bold("/loader/index.js")}`
+            else if(isTypesWritten) message = `Wrote new types to ${bold("/loader/index.d.ts")}`
+            else message = `${bold("No types or body")} were written as they already exists. This is possibly due to running the install command multiple times`
 
             modSpinner.stopAndPersist({
                 text: message,

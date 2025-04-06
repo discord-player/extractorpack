@@ -1,8 +1,7 @@
 import { Command } from "commander";
 import ora from "ora-classic";
 import { DTS_BASE, LOADER_JS_BASE, LOADER_JS_PATH, LOADER_TYPES_PATH, ORA_FRAMES_BLUE } from "../Constants";
-import { modifyCode, scanCompatibleExtractors } from "../utils";
-import ansiColors from "ansi-colors";
+import { bold, modifyCode, scanCompatibleExtractors } from "../utils";
 import { writeFile } from "fs/promises";
 
 export async function scanAndWrite() {
@@ -20,7 +19,7 @@ export async function scanAndWrite() {
         return;
     }
 
-    scanSpinner.text = `Found ${ansiColors.bold(extractors.length.toString())} extractor(s). Writing code ...`
+    scanSpinner.text = `Found ${bold(extractors.length.toString())} extractor(s). Writing code ...`
 
     // rest all the code
     await Promise.all([
@@ -29,7 +28,7 @@ export async function scanAndWrite() {
     ])
 
     for(const extractor of extractors) {
-        scanSpinner.text = `Writing code for ${ansiColors.bold(extractor)} ...`
+        scanSpinner.text = `Writing code for ${bold(extractor)} ...`
         modifyCode(extractor)
     }
 

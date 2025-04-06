@@ -1,13 +1,13 @@
 import type { Spinner } from "ora-classic";
-import ansi from "ansi-colors";
+import { bold } from "../utils";
 
 export const ORA_FRAMES_BLUE: Spinner = {
     frames: [
-        ansi.bold(`${ansi.blue("˃")}˃˃`),
-        ansi.bold(`˃${ansi.blue("˃")}˃`),
-        ansi.bold(`˃˃${ansi.blue("˃")}`),
+        bold(`\x1B[34m˃\x1B[39m˃˃`),
+        bold(`˃\x1B[34m˃\x1B[39m˃`),
+        bold(`˃˃\x1B[34m˃\x1B[39m`),
     ]
 } as const
 
-export const WARNING_LABEL = ansi.bgYellow(` ${ansi.white.bold("WARNING")} `)
-export const ERROR_LABEL = ansi.bgRed(` ${ansi.white.bold("ERROR")} `)
+export const WARNING_LABEL = '\x1B[43m \x1B[37m\x1B[1mWARNING\x1B[22m\x1B[39m \x1B[49m'
+export const ERROR_LABEL = '\x1B[41m \x1B[37m\x1B[1mERROR\x1B[22m\x1B[39m \x1B[49m'

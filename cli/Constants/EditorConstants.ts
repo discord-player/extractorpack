@@ -8,6 +8,9 @@ export const CONFIG_FILE = "configFile" as const
 export const LOADER_JS_PATH = path.join(__dirname, "..", "loader", "index.js")
 export const LOADER_TYPES_PATH = path.join(__dirname, "..", "loader", "index.d.ts")
 export const DTS_BASE = `
+/**
+ * THIS IS AN AUTO GENERATED FILE. DO NOT EDIT UNLESS YOU KNOW WHAT YOU'RE DOING
+ */
 import { Player } from "discord-player";
 
 // ------- DYNAMIC OPTIONS -------
@@ -17,6 +20,9 @@ declare function load(player: Player): Promise<void>
 declare function defineConfig(config: ExtractorPackConfigOptions): ExtractorPackConfigOptions
 `.trim()
 export const LOADER_JS_BASE = `
+/**
+ * THIS IS AN AUTO GENERATED FILE. DO NOT EDIT UNLESS YOU KNOW WHAT YOU'RE DOING
+ */
 const path = require("path")
 
 /**
