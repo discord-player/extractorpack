@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { program } from "commander"
 import fs from "fs"
 import path from "path"
@@ -10,3 +11,5 @@ program
     .name(name)
 
 addCommand(program)
+
+program.parse(process.argv)

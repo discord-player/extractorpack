@@ -15,8 +15,8 @@ function buildInstallCommand(manager: PackageManagers, pkg: ExtractorData, versi
             else version = pkg[version]
         }
     }
-    if(manager === "npm") return `npm install ${pkg}@${version || "latest"}`
-    return `${manager} add ${pkg}@${version || "latest"}`
+    if(manager === "npm") return `npm install ${pkg.name}@${version || "latest"}`
+    return `${manager} add ${pkg.name}@${version || "latest"}`
 }
 
 export function addCommand(program: Command) {
@@ -42,7 +42,9 @@ export function addCommand(program: Command) {
                 spinner: ORA_FRAMES_BLUE
             }).start()
 
-            execSync(installCmd)
+            execSync(installCmd, {
+                cwd: process.cwd()
+            })
 
             installSpinner.stopAndPersist({
                 text: `Installed ${c.bold(displayExt)}`,

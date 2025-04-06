@@ -20,7 +20,7 @@
   },
   "packageManager": "yarn@1.22.1",
   "bin": {
-    "extractorpack": "./bin/index.ts"
+    "extractorpack": "./bin/index.js"
   },
   "overrides": {
     "ora-classic": {

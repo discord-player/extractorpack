@@ -1,10 +1,10 @@
 import path from "path";
 import fs from "fs"
 import { Project, SyntaxKind } from "ts-morph";
-import { CLASS_VAR, CONFIG_FILE, CONFIG_OPT_NAME, DASH, OPTIONS_VAR } from "../Constants";
+import { CLASS_VAR, CONFIG_FILE, CONFIG_OPT_NAME, DASH, OPTIONS_VAR, TYPES_VAR } from "../Constants";
 
-const LOADER_JS_PATH = path.join(__dirname, "loader", "index.js")
-const LOADER_TYPES_PATH = path.join(__dirname, "loader", "index.d.ts")
+const LOADER_JS_PATH = path.join(__dirname, "..", "loader", "index.js")
+const LOADER_TYPES_PATH = path.join(__dirname, "..", "loader", "index.d.ts")
 
 export async function modifyCode(packageName: string) {
     let configPath = path.join(process.cwd(), "node_modules", packageName, "extractorpack.extconfig.mjs")
@@ -23,13 +23,11 @@ export async function modifyCode(packageName: string) {
 
     const [
         mainClass,
-        options,
-        types
+        options
     ] = [
         configFile.getVariableDeclarationOrThrow(CLASS_VAR),
-        configFile.getVariableDeclarationOrThrow(OPTIONS_VAR),
-        configFile.getVariableDeclarationOrThrow(CLASS_VAR)
-    ].map(v => v.getInitializerIfKindOrThrow(SyntaxKind.StringLiteral).getText(false))
+        configFile.getVariableDeclarationOrThrow(OPTIONS_VAR)
+    ].map(v => v.getInitializerIfKindOrThrow(SyntaxKind.StringLiteral).getText(false).slice(1, -1))
 
     const loaderJs = project.addSourceFileAtPath(LOADER_JS_PATH)
     

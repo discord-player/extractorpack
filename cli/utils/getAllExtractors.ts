@@ -18,7 +18,7 @@ export type Extractors = {
 export async function getAllExtractors() {
     if(process.env.EXT_PACK_FETCH_LOCATION === "local") {
         console.warn(createWarnMessage(`Using a local file for valid extractors. This maybe outdated!`))
-        return JSON.parse(readFileSync(path.join(__dirname, "..", "..", "COMPATIBLE_EXT.json"), "utf8")) as Extractors
+        return JSON.parse(readFileSync(path.join(__dirname, "..", "COMPATIBLE_EXT.json"), "utf8")) as Extractors
     }
     const f = await fetch(EXTRACTOR_RAW)
     if(!f.ok) throw new Error("ERROR fetching list of extractor from GitHub. Please try again")
