@@ -1,5 +1,5 @@
 import type { Command } from "commander";
-import { ExtractorData, getAllExtractors, getManager, PackageManagers } from "../utils";
+import { createWarnMessage, ExtractorData, getAllExtractors, getManager, PackageManagers } from "../utils";
 import { execSync } from "child_process";
 import { modifyCode } from "../utils";
 import ora from "ora-classic";
@@ -8,7 +8,7 @@ import { ORA_FRAMES_BLUE, SUPPORTED_VERSIONS, USE_GITHUB_VERSION } from "../Cons
 
 function buildInstallCommand(manager: PackageManagers, pkg: ExtractorData, version?: string): `${PackageManagers} ${"install"|"add"} ${string}@${string}` {
     if(version) {
-        if(!SUPPORTED_VERSIONS.includes(version)) console.warn(`${c.bgYellow(" WARNING ")}: Using the raw version ${version}`)
+        if(!SUPPORTED_VERSIONS.includes(version)) console.warn(createWarnMessage(`Using the raw version ${version}`))
         else {
             if(version === "experimental" && pkg.experimental === USE_GITHUB_VERSION) version = pkg.github
             // @ts-expect-error

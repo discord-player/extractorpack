@@ -8,3 +8,5 @@ export const ORA_FRAMES_BLUE: Spinner = {
         ansi.bold(`˃˃${ansi.blue("˃")}`),
     ]
 } as const
+
+export const WARNING_LABEL = ansi.bgYellow(" WARNING ")

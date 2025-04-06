@@ -1,3 +1,3 @@
 export * from "./EditorConstants"
-export * from "./SpinnerConstants"
+export * from "./CliConstants"
 export * from "./Others"
