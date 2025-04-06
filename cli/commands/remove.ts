@@ -75,9 +75,9 @@ export function removeCommand(program: Command) {
             const loaderTs = project.addSourceFileAtPath(LOADER_TYPES_PATH)
 
             const types = loaderTs.getInterfaceOrThrow(CONFIG_OPT_NAME)
-            const property = types.getPropertyOrThrow(`"${extractor}"`)
+            const property = types.getProperty(`"${extractor}"`)
 
-            property.remove()
+            property?.remove()
 
             const importDec = loaderTs.getImportDeclaration((v) => v.getModuleSpecifier().getText(false).trim() === extractor)
             importDec?.remove()
