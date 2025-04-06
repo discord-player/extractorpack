@@ -1,22 +1,23 @@
 import type { Command } from "commander";
-import { createWarnMessage, ExtractorData, getAllExtractors, getManager, PackageManagers } from "../utils";
+import { createErrorMessage, createWarnMessage, ExtractorData, getAllExtractors, getManager, PackageManagers } from "../utils";
 import { execSync } from "child_process";
 import { modifyCode } from "../utils";
 import ora from "ora-classic";
 import c from "ansi-colors"
 import { ORA_FRAMES_BLUE, SUPPORTED_VERSIONS, USE_GITHUB_VERSION } from "../Constants";
 
-function buildInstallCommand(manager: PackageManagers, pkg: ExtractorData, version?: string): `${PackageManagers} ${"install"|"add"} ${string}@${string}` {
-    if(version) {
-        if(!SUPPORTED_VERSIONS.includes(version)) console.warn(createWarnMessage(`Using the raw version ${version}`))
+function buildInstallCommand(manager: PackageManagers, pkg: ExtractorData, version?: string): `${PackageManagers} ${"install" | "add"} ${string}@${string}` {
+    if (version) {
+        if (!SUPPORTED_VERSIONS.includes(version)) console.warn(createWarnMessage(`Using the raw version ${version}`))
         else {
-            if(version === "experimental" && pkg.experimental === USE_GITHUB_VERSION) version = pkg.github
+            if (version === "experimental" && pkg.experimental === USE_GITHUB_VERSION) version = pkg.github
             // @ts-expect-error
             else version = pkg[version]
         }
-    }
-    if(manager === "npm") return `npm install ${pkg.name}@${version || "latest"}`
-    return `${manager} add ${pkg.name}@${version || "latest"}`
+    } else version = "latest"
+    if (["bun", "npm"].includes(manager)) return `${manager} install ${pkg.name}@${version}`
+    if (manager === "deno") return `deno install npm:${pkg.name}@${version}`
+    return `${manager} add ${pkg.name}@${version}`
 }
 
 export function addCommand(program: Command) {
@@ -28,8 +29,8 @@ export function addCommand(program: Command) {
         .action(async (extractor: string, options: { version?: string }) => {
             const allExt = await getAllExtractors()
             const ext = allExt.extractors.find(v => v.name === extractor)
-            if(!ext) {
-                console.log(`Extractor \`${extractor}\` is not a valid extractorpack extractor`)
+            if (!ext) {
+                console.log(createErrorMessage(`Extractor \`${extractor}\` is not a valid extractorpack extractor`))
                 process.exit(1)
             }
 
@@ -56,10 +57,18 @@ export function addCommand(program: Command) {
                 spinner: ORA_FRAMES_BLUE
             }).start()
 
-            modifyCode(extractor)
+            const { isBodyWritten, isTypesWritten } = modifyCode(extractor)
+
+            let message = `Wrote new types to ${c.bold("/loader/index.d.ts")} and new code to ${c.bold("/loader/index.js")}`
+
+            if(isBodyWritten && isTypesWritten) message = `Wrote new types to ${c.bold("/loader/index.d.ts")} and new code to ${c.bold("/loader/index.js")}`
+            else if(isBodyWritten) message = `Wrote new code to ${c.bold("/loader/index.js")}`
+            else if(isTypesWritten) message = `Wrote new types to ${c.bold("/loader/index.d.ts")}`
+            else message = `${c.bold("No types or body")} were written as they already exists. This is possibly due to running the install command multiple times`
 
             modSpinner.stopAndPersist({
-                text: `Wrote new types to ${c.bold("/loader/index.d.ts")} and new code to ${c.bold("/loader/index.js")}`
+                text: message,
+                symbol: "✅"
             })
         })
 }

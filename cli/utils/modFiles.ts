@@ -1,12 +1,9 @@
 import path from "path";
 import fs from "fs"
 import { Project, SyntaxKind } from "ts-morph";
-import { CLASS_VAR, CONFIG_FILE, CONFIG_OPT_NAME, DASH, OPTIONS_VAR, TYPES_VAR } from "../Constants";
+import { CLASS_VAR, CONFIG_FILE, CONFIG_OPT_NAME, DASH, OPTIONS_VAR, LOADER_JS_PATH, LOADER_TYPES_PATH } from "../Constants";
 
-const LOADER_JS_PATH = path.join(__dirname, "..", "loader", "index.js")
-const LOADER_TYPES_PATH = path.join(__dirname, "..", "loader", "index.d.ts")
-
-export async function modifyCode(packageName: string) {
+export function modifyCode(packageName: string) {
     let configPath = path.join(process.cwd(), "node_modules", packageName, "extractorpack.extconfig.mjs")
     if(!fs.existsSync(configPath)) configPath = path.join(process.cwd(), "node_modules", packageName, "extractorpack.extconfig.cjs")
     if(!fs.existsSync(configPath)) configPath = path.join(process.cwd(), "node_modules", packageName, "extractorpack.extconfig.js")
@@ -33,30 +30,47 @@ export async function modifyCode(packageName: string) {
     
     const fn = loaderJs.getFunctionOrThrow("load")
 
-    const body = fn.getBodyText()
+    let isBodyWritten = false
+
+    const body = fn.getBodyText()!
     const start = `// ${DASH} START ${packageName} ${DASH}`
     const importDeclar = `const { ${mainClass} } = await import("${packageName}");`
     const playerRegister = `player.extractors.register(${mainClass}, ${CONFIG_FILE}["${packageName}"]);`
     const end = `// ${DASH} END ${packageName} ${DASH}`
-    const moddedBody = `${body}\n${start}\n${importDeclar}\n${playerRegister}\n${end}`
-    
-    fn.setBodyText(moddedBody)
 
-    fs.writeFileSync(LOADER_JS_PATH, loaderJs.getText(true))
+    if(!body.includes(start) && !body.includes(end)) {
+        const moddedBody = `${body}\n${start}\n${importDeclar}\n${playerRegister}\n${end}`
+    
+        fn.setBodyText(moddedBody)
+    
+        fs.writeFileSync(LOADER_JS_PATH, loaderJs.getText(true))
+
+        isBodyWritten = true
+    }
+
+    let isTypesWritten = false
 
     const loaderTypes = project.addSourceFileAtPath(LOADER_TYPES_PATH)
 
-    loaderTypes.addImportDeclaration({
-        namedImports: [options],
-        moduleSpecifier: packageName
-    })
-
     const modTypes = loaderTypes.getInterfaceOrThrow(CONFIG_OPT_NAME)
 
-    modTypes.addProperty({
-        name: `"${packageName}"`,
-        type: options
-    })
+    const prop = modTypes.getProperty(`"${packageName}"`)
 
-    fs.writeFileSync(LOADER_TYPES_PATH, loaderTypes.getText())
+    if(!prop) {
+        loaderTypes.addImportDeclaration({
+            namedImports: [options],
+            moduleSpecifier: packageName
+        })
+        
+        modTypes.addProperty({
+            name: `"${packageName}"`,
+            type: options
+        })
+    
+        fs.writeFileSync(LOADER_TYPES_PATH, loaderTypes.getText())
+
+        isTypesWritten = true
+    }
+
+    return { isBodyWritten, isTypesWritten }
 }

@@ -13,10 +13,22 @@ const LOCK_FILES = [
     {
         name: "package-lock.json",
         manager: "npm"
+    },
+    {
+        name: "deno.lock",
+        manager: "deno"
+    },
+    {
+        name: "bun.lockb",
+        manager: "bun"
+    },
+    {
+        name: "bun.lock",
+        manager: "bun"
     }
 ]
 
-export type PackageManagers = "yarn"|"pnpm"|"npm"
+export type PackageManagers = "yarn"|"pnpm"|"npm"|"bun"|"deno"
 
 export function detectManager(): PackageManagers {
     let pkgJson: { packageManager?: string } | undefined
