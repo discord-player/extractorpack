@@ -2,6 +2,7 @@
   "name": "extractorpack",
   "version": "0.0.1",
   "main": "loader/index.js",
+  "author": "extractorpack",
   "scripts": {
     "build": "tsup"
   },
