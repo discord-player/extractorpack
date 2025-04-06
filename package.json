@@ -1,6 +1,6 @@
 {
   "name": "@extractorpack/extractorpack",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "loader/index.js",
   "author": "extractorpack",
   "scripts": {

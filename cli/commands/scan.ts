@@ -13,7 +13,7 @@ export async function scanAndWrite() {
     const extractors = await scanCompatibleExtractors()
     if(extractors.length === 0) {
         scanSpinner.stopAndPersist({
-            symbol: "ℹ️",
+            symbol: "ℹ️ ",
             text: "Found 0 compatible extractors"
         })
         return;
