@@ -61,7 +61,7 @@ export function removeCommand(program: Command) {
                 bodySplit.findIndex((v) => v === `${DASH} END ${extractor} ${DASH}`)
             ]
 
-            if(!start || !end) console.warn(createWarnMessage("Cannot find the code block for the extractor"))
+            if(start === -1 || end === -1) console.warn(createWarnMessage("Cannot find the code block for the extractor"))
             else {
                 bodySplit.slice(start, end)
             }
