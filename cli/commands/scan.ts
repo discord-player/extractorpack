@@ -32,6 +32,11 @@ export async function scanAndWrite() {
         scanSpinner.text = `Writing code for ${ansiColors.bold(extractor)} ...`
         modifyCode(extractor)
     }
+
+    scanSpinner.stopAndPersist({
+        symbol: "✅",
+        text: `Finished writing code to ${extractors.length} extractor(s)`
+    })
 }
 
 export function scanCommand(program: Command) {
