@@ -73,7 +73,7 @@ export default defineConfig({})
 
 Furthermore, extractorpack will also scan node_modules for any compatible extractors that you have previously installed.
 
-If you want to use an existing project with alreaddy made `extractorpack.config.mjs`, you can use
+If you want to use an existing project with already made `extractorpack.config.mjs`, you can use
 ```bash
 $ npx --no extractorpack scan
 ```
@@ -105,3 +105,23 @@ export default defineConfig({
 ```bash
 $ npx --no extractorpack remove discord-player-youtubei
 ```
+
+## Adding your extractor to extractorpack
+
+Due to the extractorpack code writer, you need special variables added to your code.
+
+First are the variables. Create a file named `extractorpack.extconfig.mjs` and export these variables
+
+```js
+// Your main extractor class
+export const EXTRACTOR_PACK_CLASS = "YoutubeiExtractor";
+// The options for your extractor class. (The T inside BaseExtractor<T>)
+export const EXTRACTOR_PACK_EXT_OPTIONS = "YoutubeiOptions";
+```
+
+> [!NOTE]
+> The config file can also end in `.ts`, `.js`. It is not executed but only read based on the AST.
+
+Then, submit a pull request to the [extractorpack repository](https://github.com/discord-player/extractorpack) modifying the `COMPATIBLE_EXT.json` to add your extractor to it.
+
+Keep in mind that if a version field is a GitHub URL and your extractor uses TypeScript, you must add a `prepare` script to npm lifecycle in order for it to be used. This script will build your extractor.

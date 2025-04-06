@@ -1,10 +1,11 @@
 {
   "name": "@extractorpack/extractorpack",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "loader/index.js",
   "author": "extractorpack",
   "scripts": {
-    "build": "tsup"
+    "build": "tsup",
+    "prepare": "npm run build"
   },
   "dependencies": {
     "commander": "^13.1.0",
