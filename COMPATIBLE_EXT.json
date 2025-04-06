@@ -12,18 +12,42 @@
             "name": "discord-player-spotify",
             "github": "https://github.com/iTsMaaT/discord-player-spotify.git",
             "stable": "latest",
-            "experimental": "EXT_PACK_USE_GIT"
-        },
-        {
-            "name": "discord-player-deezer",
-            "github": "https://github.com/discord-player/deezer-extractor",
-            "stable": "latest",
+            "beta": "latest",
             "experimental": "EXT_PACK_USE_GIT"
         },
         {
             "name": "discord-player-applemusic",
             "github": "https://github.com/iTsMaaT/discord-player-applemusic.git",
             "stable": "latest",
+            "beta": "latest",
+            "experimental": "EXT_PACK_USE_GIT"
+        },
+        {
+            "name": "discord-player-soundcloud",
+            "github": "https://github.com/iTsMaaT/discord-player-soundcloud.git",
+            "stable": "latest",
+            "beta": "latest",
+            "experimental": "EXT_PACK_USE_GIT"
+        },
+        {
+            "name": "discord-player-soundgasm",
+            "github": "https://github.com/iTsMaaT/discord-player-soundgasm.git",
+            "stable": "latest",
+            "beta": "latest",
+            "experimental": "EXT_PACK_USE_GIT"
+        },
+        {
+            "name": "discord-player-soundcloud",
+            "github": "https://github.com/iTsMaaT/discord-player-soundcloud.git",
+            "stable": "latest",
+            "beta": "latest",
+            "experimental": "EXT_PACK_USE_GIT"
+        },
+        {
+            "name": "discord-player-tts",
+            "github": "https://github.com/iTsMaaT/discord-player-ts.git",
+            "stable": "latest",
+            "beta": "latest",
             "experimental": "EXT_PACK_USE_GIT"
         }
     ]
