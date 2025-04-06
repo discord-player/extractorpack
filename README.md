@@ -24,14 +24,14 @@ Extractorpack seek to fix this via its CLI tool by installing and writing code a
 
 ```ts
 // main loader file
-import { load } from "extractorpack"
+import { load } from "@extractorpack/extractorpack"
 
 load(player)
 ```
 
 ```ts
 // extractorpack.config.mjs
-import { defineConfig } from "extractorpack"
+import { defineConfig } from "@extractorpack/extractorpack"
 
 export default defineConfig({})
 ```
@@ -43,11 +43,11 @@ export default defineConfig({})
 
 ### npm
 ```bash
-$ npm install --save-dev extractorpack
+$ npm install --save-dev @extractorpack/extractorpack
 ```
 ### yarn
 ```bash
-$ yarn add -D extractorpack
+$ yarn add -D @extractorpack/extractorpack
 ```
 
 ## Using extractorpack
@@ -66,7 +66,7 @@ $ npx --no extractorpack init
 This will create a file named `extractorpack.config.mjs` and fill it with content similar to below.
 
 ```js
-import { defineConfig } from "extractorpack"
+import { defineConfig } from "@extractorpack/extractorpack"
 
 export default defineConfig({})
 ```
@@ -90,7 +90,7 @@ $ npx --no extractorpack add discord-player-youtubei
 This will automatically add the install the extractor using the package manager your project is configured to use and register it. You can then modify the options for this extractor inside your `extractorpack.config.mjs`
 
 ```js
-import { defineConfig } from "extractorpack"
+import { defineConfig } from "@extractorpack/extractorpack"
 
 export default defineConfig({
     "discord-player-youtubei": {
