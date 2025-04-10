@@ -35,7 +35,7 @@ async function load(player) {
      * 
      * player.extractors.register(ExtractorClass, options['extractor-package-name'])
      */
-    const configFile = (await import(\`file://\${path.join(process.cwd(), "extractorpack.config.js")}\`)).default
+    const configFile = (await import(\`file://\${path.join(process.cwd(), "extractorpack.config.mjs")}\`)).default
 }
 
 /**
