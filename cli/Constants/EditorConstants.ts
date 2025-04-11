@@ -59,7 +59,7 @@ function defineConfig(options) {
 module.exports = { load, defineConfig }
 `.trim()
 export const BASE_CONFIG_CONTENT = `
-import { defineConfig } from "extractorpack"
+import { defineConfig } from "@extractorpack/extractorpack"
 
 export default defineConfig({})
 `.trim()
